@@ -1,0 +1,28 @@
+
+//////////////////////// Solution 1
+The problem is that the Android emulator maps 10.0.2.2 to 127.0.0.1,
+not to localhost. So configure your web server to serveron 127.0.0.1:54722
+and not localhost:54722. That should do it.
+//////////////////////// Solution 2
+
+
+
+After running your local host you get http://localhost:[port number]/ here you found your port number.
+
+Then get your IP address from Command, Open your windows command and type ipconfig enter image description here
+
+In my case, IP was 192.168.10.33 so my URL will be http://192.168.10.33:[port number]/. In Android, the studio uses this URL as your URL. And after that set your URL and your port number in manual proxy for the emulator.
+
+enter image description here
+Share
+/////////////////////////////////// Solution 3
+
+
+
+I have a webserver running on my localhost.
+
+If I open up the emulator and want to connect to my localhost I am using 192.168.x.x. This means you should use your local lan ip address. By the way, your HttpResponseException (Bad Request) doesn't mean that the host is not reachable.
+
+Some other errors lead to this exception.
+Share
+
