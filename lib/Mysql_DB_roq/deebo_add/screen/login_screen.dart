@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import '../../sample2_curdPages_roq/homepage.dart';
@@ -8,25 +10,72 @@ import 'signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final _key = GlobalKey<FormState>();
-  String? _password;
-  String? _user_name;
+  TextEditingController _password = TextEditingController();
+  TextEditingController _user_name = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    void _showErrorDialog(String message) {
+    void _showErrorDialog(BuildContext context, String message) {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text('هناك خطا'),
-          content: Text(message),
-          actions: [
-            TextButton(
-              child: Text('دخول'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+        builder: (context) => Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          elevation: 5.0,
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 48.0,
+                ),
+                SizedBox(height: 10.0),
+                Text(
+                  'خطأ',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Text(
+                  message,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20.0),
+                ElevatedButton(
+                  child: Text(
+                    'حسناً',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue,
+                    onPrimary: Colors.white,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       );
     }
@@ -69,14 +118,12 @@ class LoginScreen extends StatelessWidget {
                   decoration: kTextContainerForm,
                   child: TextFormField(
                     maxLength: 30,
-                    onChanged: (value) => {_user_name = value},
-                    onSaved: (value) {
-                      _user_name = value;
-                    },
+                    controller: _user_name,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'ادخل اسم المستخدم';
                       }
+                      return null;
                     },
                     cursorColor: Colors.deepPurpleAccent[900],
                     keyboardType: TextInputType.name,
@@ -87,7 +134,7 @@ class LoginScreen extends StatelessWidget {
                       hintText: 'اسم المستخدم ',
                       hintStyle: hintStyleLoginScreen,
                       icon: Icon(
-                        Icons.alternate_email,
+                        Icons.verified_user,
                         color: Color(0xFF6A3899),
                         size: 25,
                       ),
@@ -102,15 +149,13 @@ class LoginScreen extends StatelessWidget {
                     maxLength: 15,
                     style: Theme.of(context).textTheme.bodyText1,
                     obscureText: true,
-                    onChanged: (value) => {_password = value},
-                    onSaved: (value) {
-                      _password = value;
-                    },
+                    controller: _password,
                     validator: (value) {
                       if (value!.isEmpty) {
                         ;
                         return 'ادخل كلمه المرور';
                       }
+                      return null;
                     },
                     cursorColor: Colors.deepPurpleAccent[900],
                     keyboardType: TextInputType.visiblePassword,
@@ -134,15 +179,15 @@ class LoginScreen extends StatelessWidget {
                     if (_key.currentState!.validate()) {
                       // Save the form data
                       _key.currentState!.save();
-                      String userName = _user_name!;
-                      String password = _password!;
+                      String userName = _user_name.text;
+                      String password = _password.text;
                       // Call the signIn method to authenticate the user's data with the server
                       final user = await AuthService.signIn(userName, password);
 
                       if (user == null) {
                         // Show an error message if the sign-in fails
                         _showErrorDialog(
-                            'اسم المستخدم أو كلمة المرور غير صحيحة');
+                            context, 'اسم المستخدم أو كلمة المرور غير صحيحة');
                       } else {
                         // Navigate to the home page if the sign-in is successful
                         Navigator.push(

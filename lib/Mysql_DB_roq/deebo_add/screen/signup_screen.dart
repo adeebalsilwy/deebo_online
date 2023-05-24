@@ -18,20 +18,67 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _showErrorDialog(String message) {
+    void _showErrorDialog(BuildContext context, String message) {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text('هناك خطا'),
-          content: Text(message),
-          actions: [
-            TextButton(
-              child: Text('دخول'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+        builder: (context) => Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          elevation: 5.0,
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 48.0,
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  'هناك خطأ',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  message,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 30.0),
+                ElevatedButton(
+                  child: Text(
+                    'دخول',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue,
+                    onPrimary: Colors.white,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       );
     }
@@ -187,7 +234,7 @@ class SignUpScreen extends StatelessWidget {
 
                         if (user == null) {
                           // Show an error message if the sign-up fails
-                          _showErrorDialog('حدث خطأ أثناء التسجيل');
+                          _showErrorDialog(context, 'حدث خطأ أثناء التسجيل');
                         } else {
                           // Navigate to the home page if the sign-up is successful
                           Navigator.push(
