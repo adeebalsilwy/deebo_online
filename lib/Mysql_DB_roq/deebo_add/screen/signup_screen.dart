@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import '../../sample2_curdPages_roq/homepage.dart';
@@ -15,6 +17,8 @@ class SignUpScreen extends StatelessWidget {
 
   TextEditingController userController = new TextEditingController();
   TextEditingController pwdController = new TextEditingController();
+
+  SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +133,7 @@ class SignUpScreen extends StatelessWidget {
                         if (value!.isEmpty) {
                           return 'يجب ادخال الاسم الكامل ';
                         }
+                        return null;
                       },
                       cursorColor: Colors.deepPurpleAccent[900],
                       keyboardType: TextInputType.name,
@@ -198,6 +203,7 @@ class SignUpScreen extends StatelessWidget {
                         if (value.length < 4) {
                           return 'كلمه المرور يجب ان تكزن اكبر من 4';
                         }
+                        return null;
                       },
                       cursorColor: Colors.deepPurpleAccent[900],
                       keyboardType: TextInputType.visiblePassword,

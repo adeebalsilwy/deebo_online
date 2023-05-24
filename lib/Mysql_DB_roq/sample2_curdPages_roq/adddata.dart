@@ -1,12 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'dart:async';
-import 'package:http/http.dart' as http;
 
-import '../deebo_add/appData.dart';
 import '../deebo_add/model/categorys.dart';
 import '../deebo_add/model/items.dart';
 import 'listdata.dart';

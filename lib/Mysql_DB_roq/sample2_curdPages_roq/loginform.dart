@@ -14,8 +14,6 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   TextEditingController userController = new TextEditingController();
   TextEditingController pwdController = new TextEditingController();
-//////////////////////////////////////Roq Added it //////////////////////////////
-  bool _visible = false;
   final _formKey = GlobalKey<FormState>();
   Future userLogin() async {
     //Login API URL
@@ -23,9 +21,7 @@ class _LoginFormState extends State<LoginForm> {
     String url = "http://10.0.2.2/my_store/user_login.php";
     // 10.0.2.2
     // Showing LinearProgressIndicator.
-    setState(() {
-      _visible = true;
-    });
+    setState(() {});
 
     // Getting username and password from Controller
     var data = {
@@ -44,7 +40,6 @@ class _LoginFormState extends State<LoginForm> {
       if (msg['loginStatus'] == true) {
         setState(() {
           //hide progress indicator
-          _visible = false;
         });
 
         // Navigate to Home Screen
@@ -53,7 +48,6 @@ class _LoginFormState extends State<LoginForm> {
       } else {
         setState(() {
           //hide progress indicator
-          _visible = false;
 
           //Show Error Message Dialog
           showMessage(msg["message"]);
@@ -62,7 +56,6 @@ class _LoginFormState extends State<LoginForm> {
     } else {
       setState(() {
         //hide progress indicator
-        _visible = false;
 
         //Show Error Message Dialog
         showMessage("Error during connecting to Server.");
