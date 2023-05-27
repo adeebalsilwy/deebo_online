@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:deebo_online/Mysql_DB_roq/sample2_curdPages_roq/loginform_simple.dart';
 
 import '../deebo_add/screen/login_screen.dart';
-import 'loginform.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
